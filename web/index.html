@@ -1,0 +1,218 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clínica XPTO - Agendamentos</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="page-shell topbar-inner">
+      <div class="brand">
+        <div class="brand-mark">XP</div>
+        <div>
+          <h1>Clínica XPTO</h1>
+          <p>Sistema de agendamento</p>
+        </div>
+      </div>
+      <nav class="menu" aria-label="Menu principal">
+        <button class="menu-btn active" data-action="home">Home</button>
+        <button class="menu-btn" data-action="pacientes">Paciente</button>
+        <button class="menu-btn" data-action="dentistas">Dentista</button>
+        <button class="menu-btn danger" data-action="sair">Sair</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page-shell main-content">
+    <section class="hero">
+      <div class="card hero-card">
+        <h2>Gerenciamento de Agendamentos</h2>
+        <p>Visualize os agendamentos da clínica, acompanhe paciente e dentista responsáveis e atualize a data quando necessário.</p>
+      </div>
+      <aside class="card user-card">
+        <div class="user-label">Usuário logado</div>
+        <p class="user-name" id="usuario-nome">Carregando...</p>
+        <p class="user-meta" id="usuario-login"></p>
+      </aside>
+    </section>
+
+    <section class="card panel">
+      <div class="section-header">
+        <div>
+          <h3>Agendamentos</h3>
+          <p>Ordenados por dia de agendamento, com dados do paciente e do dentista.</p>
+        </div>
+        <div class="toolbar">
+          <button class="btn btn-secondary" id="btn-refresh-agendamentos">Atualizar lista</button>
+          <button class="btn btn-primary" id="btn-novo-agendamento">Novo agendamento</button>
+        </div>
+      </div>
+
+      <div id="app-feedback" class="feedback hidden"></div>
+
+      <div id="agendamento-form-wrap" class="form-card" hidden>
+        <h4 id="agendamento-form-title">Novo agendamento</h4>
+        <form id="agendamento-form">
+          <input type="hidden" id="agendamento-id">
+          <div class="grid-2">
+            <div class="field">
+              <label for="agendamento-data">Data e hora</label>
+              <input id="agendamento-data" type="datetime-local" required>
+            </div>
+            <div class="field">
+              <label for="agendamento-paciente">Paciente</label>
+              <select id="agendamento-paciente" required></select>
+            </div>
+            <div class="field">
+              <label for="agendamento-dentista">Dentista</label>
+              <select id="agendamento-dentista" required></select>
+            </div>
+            <div class="field">
+              <label for="agendamento-usuario">Usuário responsável</label>
+              <input id="agendamento-usuario" type="text" disabled>
+            </div>
+          </div>
+          <div class="form-actions">
+            <button class="btn btn-primary" type="submit">Salvar</button>
+            <button class="btn btn-secondary" type="button" id="btn-cancelar-agendamento">Cancelar</button>
+          </div>
+        </form>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Data</th>
+              <th>Paciente</th>
+              <th>CPF</th>
+              <th>Dentista</th>
+              <th>CRO</th>
+              <th>Especialidade</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody id="agendamentos-tbody"></tbody>
+        </table>
+      </div>
+      <div id="agendamentos-empty" class="empty-state" hidden>Nenhum agendamento cadastrado.</div>
+    </section>
+  </main>
+
+  <div class="modal-overlay" id="modal-pacientes" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="titulo-pacientes">
+      <div class="modal-header">
+        <div>
+          <h3 id="titulo-pacientes">Gerenciamento de Pacientes</h3>
+          <p>Cadastre, busque, edite ou exclua pacientes. O CPF é armazenado criptografado no banco.</p>
+        </div>
+        <button class="icon-btn" data-close-modal="modal-pacientes" aria-label="Fechar">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div id="paciente-feedback" class="feedback hidden"></div>
+        <div class="form-card">
+          <h4 id="paciente-form-title">Adicionar paciente</h4>
+          <form id="paciente-form">
+            <input type="hidden" id="paciente-id">
+            <div class="grid-2">
+              <div class="field">
+                <label for="paciente-nome">Nome</label>
+                <input id="paciente-nome" type="text" required placeholder="Nome do paciente">
+              </div>
+              <div class="field">
+                <label for="paciente-cpf">CPF</label>
+                <input id="paciente-cpf" type="text" required placeholder="000.000.000-00">
+              </div>
+            </div>
+            <div class="form-actions">
+              <button class="btn btn-primary" type="submit">Salvar paciente</button>
+              <button class="btn btn-secondary" type="button" id="btn-cancelar-paciente">Limpar</button>
+            </div>
+          </form>
+        </div>
+
+        <div class="search-row">
+          <input id="paciente-busca" type="search" placeholder="Buscar por nome, id ou CPF exibido">
+          <button class="btn btn-secondary" id="btn-limpar-busca-paciente" type="button">Limpar busca</button>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>CPF</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody id="pacientes-tbody"></tbody>
+          </table>
+        </div>
+        <div id="pacientes-empty" class="empty-state" hidden>Nenhum paciente encontrado.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="modal-dentistas" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="titulo-dentistas">
+      <div class="modal-header">
+        <div>
+          <h3 id="titulo-dentistas">Gerenciamento de Dentistas</h3>
+          <p>Cadastre e visualize dentistas com CRO, nome e especialidade.</p>
+        </div>
+        <button class="icon-btn" data-close-modal="modal-dentistas" aria-label="Fechar">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div id="dentista-feedback" class="feedback hidden"></div>
+        <div class="form-card">
+          <h4 id="dentista-form-title">Adicionar dentista</h4>
+          <form id="dentista-form">
+            <input type="hidden" id="dentista-id">
+            <div class="grid-2">
+              <div class="field">
+                <label for="dentista-nome">Nome</label>
+                <input id="dentista-nome" type="text" required placeholder="Nome do dentista">
+              </div>
+              <div class="field">
+                <label for="dentista-cro">CRO</label>
+                <input id="dentista-cro" type="text" required placeholder="CRO-SP 000000">
+              </div>
+              <div class="field">
+                <label for="dentista-especialidade">Especialidade</label>
+                <input id="dentista-especialidade" type="text" required placeholder="Especialidade">
+              </div>
+            </div>
+            <div class="form-actions">
+              <button class="btn btn-primary" type="submit">Salvar dentista</button>
+              <button class="btn btn-secondary" type="button" id="btn-cancelar-dentista">Limpar</button>
+            </div>
+          </form>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>CRO</th>
+                <th>Especialidade</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody id="dentistas-tbody"></tbody>
+          </table>
+        </div>
+        <div id="dentistas-empty" class="empty-state" hidden>Nenhum dentista cadastrado.</div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/auth.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

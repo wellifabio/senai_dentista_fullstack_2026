@@ -50,5 +50,4 @@ senha: senha123
 ![Modal de Gestão de pacientes](./docs/print03.png)
 ![Modal de Gestão de dentistas](./docs/print04.png)
 
-</details>
-"# senai_dentista_fullstack_2026" 
+</details> 

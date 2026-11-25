@@ -1,0 +1,355 @@
+{
+  "_type": "export",
+  "__export_format": 4,
+  "__export_date": "2026-11-25T14:33:23.466Z",
+  "__export_source": "backend-aula",
+  "resources": [
+    {
+      "_id": "wrk_backend",
+      "_type": "workspace",
+      "name": "Backend Aula"
+    },
+    {
+      "_id": "fld_api",
+      "_type": "request_group",
+      "parentId": "wrk_backend",
+      "name": "api"
+    },
+    {
+      "_id": "fld_Usuario",
+      "_type": "request_group",
+      "parentId": "fld_api",
+      "name": "Usuario"
+    },
+    {
+      "_id": "req_Usuario_GET_ALL",
+      "_type": "request",
+      "parentId": "fld_Usuario",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "name": "Listar",
+      "method": "GET",
+      "url": "http://localhost:3000/usuario/listar"
+    },
+    {
+      "_id": "req_Usuario_GET_ID",
+      "_type": "request",
+      "parentId": "fld_Usuario",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "name": "Buscar",
+      "method": "GET",
+      "url": "http://localhost:3000/usuario/buscar/:id"
+    },
+    {
+      "_id": "req_Usuario_POST",
+      "_type": "request",
+      "parentId": "fld_Usuario",
+      "name": "Cadastrar",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "method": "POST",
+      "url": "http://localhost:3000/usuario/cadastrar",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"nome\": \"string\",\n  \"login\": \"string\",\n  \"senha\": \"string\"\n}"
+      }
+    },
+    {
+      "_id": "req_Usuario_PUT",
+      "_type": "request",
+      "parentId": "fld_Usuario",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "name": "Atualizar",
+      "method": "PUT",
+      "url": "http://localhost:3000/usuario/atualizar/:id",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"nome\": \"string\",\n  \"login\": \"string\",\n  \"senha\": \"string\"\n}"
+      }
+    },
+    {
+      "_id": "req_Usuario_DELETE",
+      "_type": "request",
+      "parentId": "fld_Usuario",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "name": "Excluir",
+      "method": "DELETE",
+      "url": "http://localhost:3000/usuario/excluir/:id"
+    },
+    {
+      "_id": "fld_Paciente",
+      "_type": "request_group",
+      "parentId": "fld_api",
+      "name": "Paciente"
+    },
+    {
+      "_id": "req_Paciente_GET_ALL",
+      "_type": "request",
+      "parentId": "fld_Paciente",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "name": "Listar",
+      "method": "GET",
+      "url": "http://localhost:3000/paciente/listar"
+    },
+    {
+      "_id": "req_Paciente_GET_ID",
+      "_type": "request",
+      "parentId": "fld_Paciente",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "name": "Buscar",
+      "method": "GET",
+      "url": "http://localhost:3000/paciente/buscar/:id"
+    },
+    {
+      "_id": "req_Paciente_POST",
+      "_type": "request",
+      "parentId": "fld_Paciente",
+      "name": "Cadastrar",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "method": "POST",
+      "url": "http://localhost:3000/paciente/cadastrar",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"cpf\": \"string\",\n  \"nome\": \"string\"\n}"
+      }
+    },
+    {
+      "_id": "req_Paciente_PUT",
+      "_type": "request",
+      "parentId": "fld_Paciente",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "name": "Atualizar",
+      "method": "PUT",
+      "url": "http://localhost:3000/paciente/atualizar/:id",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"cpf\": \"string\",\n  \"nome\": \"string\"\n}"
+      }
+    },
+    {
+      "_id": "req_Paciente_DELETE",
+      "_type": "request",
+      "parentId": "fld_Paciente",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "name": "Excluir",
+      "method": "DELETE",
+      "url": "http://localhost:3000/paciente/excluir/:id"
+    },
+    {
+      "_id": "fld_Dentista",
+      "_type": "request_group",
+      "parentId": "fld_api",
+      "name": "Dentista"
+    },
+    {
+      "_id": "req_Dentista_GET_ALL",
+      "_type": "request",
+      "parentId": "fld_Dentista",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "name": "Listar",
+      "method": "GET",
+      "url": "http://localhost:3000/dentista/listar"
+    },
+    {
+      "_id": "req_Dentista_GET_ID",
+      "_type": "request",
+      "parentId": "fld_Dentista",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "name": "Buscar",
+      "method": "GET",
+      "url": "http://localhost:3000/dentista/buscar/:id"
+    },
+    {
+      "_id": "req_Dentista_POST",
+      "_type": "request",
+      "parentId": "fld_Dentista",
+      "name": "Cadastrar",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "method": "POST",
+      "url": "http://localhost:3000/dentista/cadastrar",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"cro\": \"string\",\n  \"nome\": \"string\",\n  \"especialidade\": \"string\"\n}"
+      }
+    },
+    {
+      "_id": "req_Dentista_PUT",
+      "_type": "request",
+      "parentId": "fld_Dentista",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "name": "Atualizar",
+      "method": "PUT",
+      "url": "http://localhost:3000/dentista/atualizar/:id",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"cro\": \"string\",\n  \"nome\": \"string\",\n  \"especialidade\": \"string\"\n}"
+      }
+    },
+    {
+      "_id": "req_Dentista_DELETE",
+      "_type": "request",
+      "parentId": "fld_Dentista",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "name": "Excluir",
+      "method": "DELETE",
+      "url": "http://localhost:3000/dentista/excluir/:id"
+    },
+    {
+      "_id": "fld_Agendamento",
+      "_type": "request_group",
+      "parentId": "fld_api",
+      "name": "Agendamento"
+    },
+    {
+      "_id": "req_Agendamento_GET_ALL",
+      "_type": "request",
+      "parentId": "fld_Agendamento",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "name": "Listar",
+      "method": "GET",
+      "url": "http://localhost:3000/agendamento/listar"
+    },
+    {
+      "_id": "req_Agendamento_GET_ID",
+      "_type": "request",
+      "parentId": "fld_Agendamento",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "name": "Buscar",
+      "method": "GET",
+      "url": "http://localhost:3000/agendamento/buscar/:id"
+    },
+    {
+      "_id": "req_Agendamento_POST",
+      "_type": "request",
+      "parentId": "fld_Agendamento",
+      "name": "Cadastrar",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "method": "POST",
+      "url": "http://localhost:3000/agendamento/cadastrar",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"data\": \"2026-11-25T14:33:23.462Z\",\n  \"usuarioId\": 0,\n  \"pacienteId\": 0,\n  \"dentistaId\": 0\n}"
+      }
+    },
+    {
+      "_id": "req_Agendamento_PUT",
+      "_type": "request",
+      "parentId": "fld_Agendamento",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "name": "Atualizar",
+      "method": "PUT",
+      "url": "http://localhost:3000/agendamento/atualizar/:id",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"data\": \"2026-11-25T14:33:23.462Z\",\n  \"usuarioId\": 0,\n  \"pacienteId\": 0,\n  \"dentistaId\": 0\n}"
+      }
+    },
+    {
+      "_id": "req_Agendamento_DELETE",
+      "_type": "request",
+      "parentId": "fld_Agendamento",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "name": "Excluir",
+      "method": "DELETE",
+      "url": "http://localhost:3000/agendamento/excluir/:id"
+    }
+  ]
+}

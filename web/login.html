@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Clínica XPTO</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <main class="login-page">
+    <section class="card login-card">
+      <div class="brand login-brand">
+        <div class="brand-mark">XP</div>
+        <div>
+          <h1>Clínica XPTO</h1>
+          <p>Agendamento odontológico</p>
+        </div>
+      </div>
+
+      <h2>Entrar</h2>
+      <p>Acesse o sistema com seu login e senha para gerenciar pacientes, dentistas e agendamentos.</p>
+
+      <div id="login-feedback" class="feedback error hidden"></div>
+
+      <form id="login-form" novalidate>
+        <div class="field">
+          <label for="login">Login</label>
+          <input id="login" name="login" type="text" autocomplete="username" required placeholder="Digite seu login">
+        </div>
+        <div class="field">
+          <label for="senha">Senha</label>
+          <input id="senha" name="senha" type="password" autocomplete="current-password" required placeholder="Digite sua senha">
+        </div>
+        <button class="btn btn-primary" type="submit" style="width:100%;">Entrar</button>
+      </form>
+    </section>
+  </main>
+
+  <script src="js/auth.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/login.js"></script>
+</body>
+</html>
