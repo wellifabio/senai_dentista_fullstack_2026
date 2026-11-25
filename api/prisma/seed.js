@@ -19,13 +19,13 @@ async function main() {
             transaction.paciente.create({ data: { nome: "Mariana Campos", cpf: await criarHash("196.740.112-85") } }),
             transaction.paciente.create({ data: { nome: "Carolina Machado", cpf: await criarHash("705.163.621-94") } }),
         ])
-        console.log("pacientees de teste cadastrados.")
+        console.log("Pacientees de teste cadastrados.")
         const dentistas = await Promise.all([
             transaction.dentista.create({ data: { nome: "Maximiliano Silva", especialidade: "Cirurgia", cro: "CRO-SP 123456" } }),
             transaction.dentista.create({ data: { nome: "Mariana Gimenes", especialidade: "Ortodontia", cro: "CRO-MG 123000" } }),
             transaction.dentista.create({ data: { nome: "Tadeu Oliveira", especialidade: "Clínica Geral", cro: "CRO-SP 123006" } }),
         ])
-        console.log("dentistas de teste cadastrados.")
+        console.log("Dentistas de teste cadastrados.")
         const agendamentos = await Promise.all([
             transaction.agendamento.create({ data: { usuarioId: 1, pacienteId: 1, dentistaId: 3 } }),
             transaction.agendamento.create({ data: { usuarioId: 1, pacienteId: 2, dentistaId: 2 } }),
