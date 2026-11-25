@@ -1,10 +1,12 @@
-﻿function getSession() {
+function getSession() {
   const token = localStorage.getItem("token");
   const usuarioRaw = localStorage.getItem("usuario");
   if (!token || !usuarioRaw) return null;
+
   try {
     return { token, usuario: JSON.parse(usuarioRaw) };
   } catch {
+    clearSession();
     return null;
   }
 }

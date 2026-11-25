@@ -1,4 +1,4 @@
-﻿const session = requireAuth();
+const session = requireAuth();
 if (!session) {
   throw new Error("Sessão inválida.");
 }
@@ -66,30 +66,26 @@ function formatDateTime(value) {
   if (!value) return "-";
   const date = new Date(value);
   if (Number.isNaN(date.getTime())) return String(value);
-  try {
-    return date.toLocaleString("pt-BR", {
-      day: "2-digit",
-      month: "2-digit",
-      year: "numeric",
-      hour: "2-digit",
-      minute: "2-digit"
-    });
-  } catch {
-    return date.toLocaleString("pt-BR");
-  }
+  return date.toLocaleString("pt-BR", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit"
+  });
 }
 
 function toDateTimeLocal(value) {
   const date = new Date(value);
   if (Number.isNaN(date.getTime())) return "";
-  const offset = date.getTimezoneOffset();
-  const local = new Date(date.getTime() - offset * 60000);
+  const local = new Date(date.getTime() - date.getTimezoneOffset() * 60000);
   return local.toISOString().slice(0, 16);
 }
 
 function cpfDisplay(cpf) {
-  if (!cpf) return "-";
-  return `<span class="badge" title="CPF armazenado criptografado no banco de dados">Protegido</span>`;
+  return cpf
+    ? '<span class="badge" title="CPF armazenado criptografado no banco de dados">Protegido</span>'
+    : "-";
 }
 
 function openModal(id) {
@@ -194,36 +190,31 @@ function renderAgendamentos() {
   el.agendamentosEmpty.hidden = agendamentos.length > 0;
 }
 
-function garantirArray(valor) {
-  return Array.isArray(valor) ? valor : [];
-}
-
 async function loadPacientes() {
-  state.pacientes = garantirArray(await api.listarPacientes());
+  const data = await api.listarPacientes();
+  state.pacientes = Array.isArray(data) ? data : [];
   renderPacientes();
   fillSelect(el.agendamentoPaciente, state.pacientes, "Selecione um paciente", (p) => `${p.nome} (#${p.id})`);
 }
 
 async function loadDentistas() {
-  state.dentistas = garantirArray(await api.listarDentistas());
+  const data = await api.listarDentistas();
+  state.dentistas = Array.isArray(data) ? data : [];
   renderDentistas();
   fillSelect(el.agendamentoDentista, state.dentistas, "Selecione um dentista", (d) => `${d.nome} - ${d.cro}`);
 }
 
 async function loadAgendamentos() {
-  state.agendamentos = garantirArray(await api.listarAgendamentos());
+  const data = await api.listarAgendamentos();
+  state.agendamentos = Array.isArray(data) ? data : [];
   renderAgendamentos();
 }
 
 async function loadAll() {
-  const resultados = await Promise.allSettled([loadPacientes(), loadDentistas()]);
-  const erros = resultados.filter((r) => r.status === "rejected").map((r) => r.reason?.message || "Erro ao carregar dados.");
-
-  try {
-    await loadAgendamentos();
-  } catch (error) {
-    erros.push(error.message || "Erro ao carregar agendamentos.");
-  }
+  const resultados = await Promise.allSettled([loadPacientes(), loadDentistas(), loadAgendamentos()]);
+  const erros = resultados
+    .filter((r) => r.status === "rejected")
+    .map((r) => r.reason?.message || "Erro ao carregar dados.");
 
   if (erros.length) {
     throw new Error(erros.join(" | "));
@@ -255,22 +246,14 @@ function resetAgendamentoForm() {
 }
 
 function openAgendamentoForm(agendamento) {
-  el.agendamentoFormWrap.hidden = false;
   fillSelect(el.agendamentoPaciente, state.pacientes, "Selecione um paciente", (p) => `${p.nome} (#${p.id})`);
   fillSelect(el.agendamentoDentista, state.dentistas, "Selecione um dentista", (d) => `${d.nome} - ${d.cro}`);
-  if (agendamento) {
-    el.agendamentoId.value = agendamento.id;
-    el.agendamentoData.value = toDateTimeLocal(agendamento.data);
-    el.agendamentoPaciente.value = agendamento.pacienteId || "";
-    el.agendamentoDentista.value = agendamento.dentistaId || "";
-    el.agendamentoFormTitle.textContent = `Editar agendamento #${agendamento.id}`;
-  } else {
-    el.agendamentoId.value = "";
-    el.agendamentoData.value = "";
-    el.agendamentoPaciente.value = "";
-    el.agendamentoDentista.value = "";
-    el.agendamentoFormTitle.textContent = "Novo agendamento";
-  }
+  el.agendamentoId.value = agendamento?.id || "";
+  el.agendamentoData.value = agendamento ? toDateTimeLocal(agendamento.data) : "";
+  el.agendamentoPaciente.value = agendamento?.pacienteId || "";
+  el.agendamentoDentista.value = agendamento?.dentistaId || "";
+  el.agendamentoFormTitle.textContent = agendamento ? `Editar agendamento #${agendamento.id}` : "Novo agendamento";
+  el.agendamentoFormWrap.hidden = false;
   el.agendamentoFormWrap.scrollIntoView({ behavior: "smooth", block: "nearest" });
 }
 

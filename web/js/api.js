@@ -1,4 +1,4 @@
-﻿const API_BASE = "http://localhost:3000";
+const API_BASE = "http://localhost:3000";
 
 async function apiRequest(path, options = {}) {
   const token = localStorage.getItem("token");
@@ -11,18 +11,12 @@ async function apiRequest(path, options = {}) {
     headers.Authorization = `Bearer ${token}`;
   }
 
-  const response = await fetch(`${API_BASE}${path}`, {
-    ...options,
-    headers
-  });
+  const response = await fetch(`${API_BASE}${path}`, { ...options, headers });
 
-  if (response.status === 401) {
-    const isLoginRequest = path === "/usuario/login";
-    if (!isLoginRequest) {
-      clearSession();
-      window.location.href = "login.html";
-      throw new Error("Sessão expirada. Faça login novamente.");
-    }
+  if (response.status === 401 && path !== "/usuario/login") {
+    clearSession();
+    window.location.href = "login.html";
+    throw new Error("Sessão expirada. Faça login novamente.");
   }
 
   const contentType = response.headers.get("content-type") || "";

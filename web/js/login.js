@@ -1,7 +1,8 @@
-﻿redirectIfAuthenticated();
+redirectIfAuthenticated();
 
 const form = document.getElementById("login-form");
 const feedback = document.getElementById("login-feedback");
+const submitButton = form.querySelector('button[type="submit"]');
 
 function showError(message) {
   feedback.textContent = message;
@@ -20,7 +21,6 @@ form.addEventListener("submit", async (event) => {
     return;
   }
 
-  const submitButton = form.querySelector('button[type="submit"]');
   submitButton.disabled = true;
   submitButton.textContent = "Entrando...";
 
@@ -33,12 +33,11 @@ form.addEventListener("submit", async (event) => {
       throw new Error("Resposta de autenticação inválida.");
     }
 
-    const usuarioSeguro = {
+    setSession(token, {
       id: usuario.id,
       nome: usuario.nome,
       login: usuario.login
-    };
-    setSession(token, usuarioSeguro);
+    });
     window.location.href = "index.html";
   } catch (error) {
     showError(error.message || "Não foi possível realizar o login.");

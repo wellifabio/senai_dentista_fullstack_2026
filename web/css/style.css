@@ -1,6 +1,5 @@
-﻿:root {
+:root {
   --bg: #f3f7fb;
-  --bg-accent: #dceef2;
   --surface: #ffffff;
   --surface-alt: #f8fbfd;
   --text: #193042;
@@ -340,8 +339,6 @@ tbody tr:hover { background: #f9fcfe; }
 .login-card p { margin: 0 0 24px; color: var(--muted); line-height: 1.6; }
 
 .login-brand { margin-bottom: 24px; }
-
-.muted { color: var(--muted); }
 
 .actions-cell {
   white-space: nowrap;
