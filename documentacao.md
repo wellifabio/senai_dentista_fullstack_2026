@@ -21,34 +21,47 @@ Documentação básica do sistema de agendamento de consultas para a Clínica de
 
 ```mermaid
 flowchart LR
-    Usuario[Usuário]
-    usuario_id((<u>id</u>)) --- Usuario
-    usuario_nome((nome)) --- Usuario
-    usuario_login((login)) --- Usuario
-    usuario_senha((senha)) --- Usuario
-    
-    paciente[paciente]
-    paciente_id((<u>id</u>)) --- paciente
-    paciente_nome((nome)) --- paciente
-    paciente_cpf((cpf)) --- paciente
 
-    dentista[dentista]
-    dentista_id((<u>id</u>)) --- dentista
-    dentista_nome((nome)) --- dentista
-    dentista_cro((cro)) --- dentista
-    dentista_especialidade((especialidade)) --- dentista
+    %% Entidades e Atributos
+    Usuario[Usuário]
+    Usuario --- c1(( )) ~~~ t1[id]:::pk
+    Usuario --- c2(( )) ~~~ t2[nome]
+    Usuario --- c3(( )) ~~~ t3[login]
+    Usuario --- c4(( )) ~~~ t4[senha]
     
-    paciente ---|1| Possui{Possui} ---|N| Agendamento
-    Usuario ---|1| Registra{Registra} ---|N| Agendamento
-    dentista ---|1| Atende{Atende} ---|N| Agendamento
+    Paciente[paciente]
+    Paciente --- c5(( )) ~~~ t5[id]:::pk
+    Paciente --- c6(( )) ~~~ t6[nome]
+    Paciente --- c7(( )) ~~~ t7[cpf]
+
+    Dentista[dentista]
+    Dentista --- c8(( )) ~~~ t8[id]:::pk
+    Dentista --- c9(( )) ~~~ t9[nome]
+    Dentista --- c10(( )) ~~~ t10[cro]
+    Dentista --- c11(( )) ~~~ t11[especialidade]
 
     Agendamento[Agendamento]
-    agendamento_id((<u>id</u>)) --- Agendamento
-    agendamento_data((data)) --- Agendamento
-    agendamento_usuario_id((<i>usuarioId</i>)) --- Agendamento
-    agendamento_paciente_id((<i>pacienteId</i>)) --- Agendamento
-    agendamento_dentista_id((<i>dentistaId</i>)) --- Agendamento
+    Agendamento --- c12(( )) ~~~ t12[id]:::pk
+    Agendamento --- c13(( )) ~~~ t13[data]
+    Agendamento --- c14(( )) ~~~ t14[usuarioId]
+    Agendamento --- c15(( )) ~~~ t15[pacienteId]
+    Agendamento --- c16(( )) ~~~ t16[dentistaId]
+    
+    %% Relacionamentos
+    Paciente ---|1| Possui{Possui} ---|N| Agendamento
+    Usuario ---|1| Registra{Registra} ---|N| Agendamento
+    Dentista ---|1| Atende{Atende} ---|N| Agendamento
 
+    %% Estilização
+    classDef pk font-weight:bold,text-decoration:underline;
+    classDef fk font-style:italic,text-decoration:underline dotted;
+    classDef entidades fill:#fff3e0,stroke:#ef6c00,stroke-width:2px;
+    classDef relacionamentos fill:#e1f5fe,stroke:#01579b,stroke-width:1px;
+    classDef atributos fill:none,stroke:none;
+    class t1,t2,t3,t4,t5,t6,t7,t8,t9,t10,t11,t12,t13,t14,t15,t16 atributos
+    class t14,t15,t16 fk
+    class Usuario,Paciente,Dentista,Agendamento entidades
+    class Possui,Registra,Atende relacionamentos
 ```
 
 ## MER DER Conceitual - versão Draw.io
