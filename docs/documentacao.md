@@ -17,7 +17,7 @@ Documentação básica do sistema de agendamento de consultas para a Clínica de
 - Linguagem de Programação: Node.js JavaScript 
     - Versão: v26.13.1
 
-## MER DER Conceitual
+<details><summary><h2>MER DER Conceitual</h2></summary>
 
 ```mermaid
 flowchart LR
@@ -64,5 +64,50 @@ flowchart LR
     class Possui,Registra,Atende relacionamentos
 ```
 
+</details>
+
 ## MER DER Conceitual - versão Draw.io
-![DER](./docs/mer_der_conceitual.png)
+![DER](./mer_der_conceitual.png)
+
+## UML - Diagrama de Atividades
+Diagrama de atividades com os passos para **agendar uma consulta** que seria a atividade principal do sistema.
+```mermaid
+flowchart TD
+    subgraph t1[Tela de Login]
+        Inicio([Início]) --> Validar[Validar login e senha]
+        Validar --> Decisao{Credenciais corretas?}
+        Decisao -- Não --> AcessoNegado[Login ou senha inválidos.]
+        AcessoNegado --> Fim([Fim])
+        Decisao -- Sim --> Credenciais[Armazena o token e dados do usuário]
+        Credenciais --> Entrar[Vai para a Home]
+    end
+
+    subgraph t2[Home Concultas]
+        Entrar --> InicioHome([Início]) --> ValidarToken{Token ativo<br>e Armazenado?}
+        ValidarToken -- Sim --> NomeUsuario[Exibe nome do usuário]:::atividades
+        ValidarToken -- Sim --> ListarAgendamentos[Listar os agendamentos por data]:::atividades
+        ValidarToken -- Sim --> NovoAgendamento[Exibe formulário para novo agendamento]:::atividades
+        ListarAgendamentos --> EditarAgendamento[Funcionalidade de atualizar data]:::atividades
+        ValidarToken -- Não --> Sair[Exclui crenenciais locais e volta para a página de Login]:::atividades
+        NomeUsuario --> Menu[Menu com opções: Pacientes, Dentistas e Sair]:::atividades
+        NovoAgendamento --> Preencher[Preencher formulários escolhendo Paciente, Dentista e Data]:::atividades
+        Preencher --> Decisao2{Paciente e<br>dentista<br>já cadastrados}
+        Decisao2 -- sim --> Enviar[Envia os dados para o Banco de dados]:::atividades
+        Decisao2 -- não --> Menu
+        Enviar --> AtualizaLista[Lista de agendamentos é atualizada com a adição do novo]:::atividades
+        AtualizaLista --> FimHome([Fim])
+        Sair --> Inicio
+    end
+
+    classDef inicioFim fill:#ffcccc,stroke:#eba0ac,stroke-width:2px,color:#11111b,font-weight:bold;
+    classDef atividades fill:#ffffff,stroke:#666633,stroke-width:2px,color:#11111b;
+    classDef decisao fill:#ffddcc,stroke:#fab387,stroke-width:2px,color:#11111b;
+    classDef quadros fill:#ffffdd, stroke:#94e2d5,stroke-width:2px,color:#000000;
+
+    class Inicio,Fim,InicioHome,FimHome inicioFim;
+    class Validar,AcessoNegado,Credenciais,Entrar atividades;
+    class Decisao,ValidarToken,Decisao2 decisao;
+    class t1,t2 quadros;
+
+
+```

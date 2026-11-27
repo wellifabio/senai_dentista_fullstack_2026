@@ -1,8 +1,8 @@
 # Dentistas XPTO (Agendamentos)
 Sistema Web Full-stack de agendamentos em uma clínica dentária
-## [Situação desafiadora](./situacao_desafiadora.md)
+## [Situação desafiadora](./docs/situacao_desafiadora.md)
 
-## [Documentação](./documentacao.md)
+## [Documentação](./docs/documentacao.md)
 
 ### Tecnologias
 - VsCode
